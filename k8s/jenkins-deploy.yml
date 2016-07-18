@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: jenkins
+  namespace: jenkins
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: master
+    spec:
+      containers:
+      - name: master
+        image: gcr.io/appsflyer-1350/jenkins
+        ports:
+        - containerPort: 8080
+        - containerPort: 50000
+        env:
+        - name: GOOGLE_APP_CLIENT_ID
+          value: ""
+        - name: GOOGLE_APP_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: jenkins
+              key: google-app-secret
+        - name: GOOGLE_ACCOUNT_DOMAIN
+          value: ""
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1000Mi
+          requests:
+            cpu: 500m
+            memory: 1000Mi
