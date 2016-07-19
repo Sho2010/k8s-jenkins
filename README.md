@@ -24,15 +24,23 @@ Edit `plugins.txt` and `custom.groovy` files.
 $ cd dockerfiles
 $ docker build -t grc.io/${GCP_PROJECT}/jenkins . 
 
-# Build slave image
-$ docker build -t grc.io/${GCP_PROJECT}/jenkins-slave -f ./Dockerfile-slave
+~~~
+
+## Build jekins slave images(with ruby)
+
+~~~sh
+$ cd dockerfiles
+
+$ build-ruby-slave.sh       # build 2,3,1 container tag:jenkins-slave-ruby:2.3.1
+$ build-ruby-slave.sh 2.3.0 # build 2,3,0 container tag:jenkins-slave-ruby:2.3.0
+
 ~~~
 
 # Push google container registry(gcr)
 
 ~~~sh
 $ gcloud docker push gcr.io/${GCP_PROJECT}/jenkins
-$ gcloud docker push gcr.io/${GCP_PROJECT}/jenkins-slave
+$ gcloud docker push gcr.io/${GCP_PROJECT}/jenkins-slave-ruby:2.3.1
 ~~~
 
 # Create GCP disk for jenkins perpetuation disk.
@@ -43,16 +51,17 @@ gcloud compute disks create jenkins-home --zone ${ZONE}
 
 # Create GKE Cluster
 
-### CAUTION: Cluster GCP scope can not be changed later.
+### CAUTION CAUTION CAUTION
+`CAUTION: Cluster GCP scope can not be changed later.`
+### CAUTION CAUTION CAUTION
 
 Recommend create GUI.
-
 Using the CLI If you needed.
 
 ~~~sh
 gcloud container clusters create "jenkins-cluster" \
   --num-nodes 3  \
-  --zone ${ZONE} \         # e.g. "asia-east1-c"
+  --zone ${ZONE} \ # e.g. "asia-east1-c"
   --machine-type "YOUR_MACHINE" \ # e.g. "n1-highcpu-4"
   --scope "compute-rw","storage-rw","bigquery","logging-write","monitoring"
 ~~~
