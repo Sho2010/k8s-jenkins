@@ -32,8 +32,8 @@ $ docker build -t grc.io/${GCP_PROJECT}/jenkins .
 ~~~sh
 $ cd dockerfiles
 
-$ build-ruby-slave.sh       # build 2,3,1 container tag:jenkins-slave-ruby:2.3.1
-$ build-ruby-slave.sh 2.3.0 # build 2,3,0 container tag:jenkins-slave-ruby:2.3.0
+$ build-ruby-slave.sh       # build 2.3.1 container tag:jenkins-slave-ruby:2.3.1
+$ build-ruby-slave.sh 2.3.0 # build 2.3.0 container tag:jenkins-slave-ruby:2.3.0
 
 ~~~
 
@@ -81,7 +81,7 @@ $ kubectl get ns --namespace jenkins
 
 ## secret
 ~~~sh
-# file name == sercret index key
+# file name == secret index key
 $ echo -n "YOUR_SECRET" > google-app-secret
 $ kubectl create secret generic --from-file=google-app-secret --namespace jenkins
 $ kubectl get secret --namespace jenkins
@@ -105,8 +105,10 @@ $ kubectl get svc --namespace jenkins
 # reference
 
 * recommend repository.
+
 https://github.com/GoogleCloudPlatform/continuous-deployment-on-kubernetes
 
 https://www.youtube.com/watch?v=PFCSSiT-UUQ&index=21&list=PL69nYSiGNLP0Ljwa9J98xUd6UlM604Y-l
+
 http://www.slideshare.net/devopsdaysaustin/continuously-delivering-microservices-in-kubernetes-using-jenkins
 
