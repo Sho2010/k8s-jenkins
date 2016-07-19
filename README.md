@@ -17,6 +17,7 @@ Create jenkins cluster on kubernetes(GKE).
 ## Build jekins images 
 
 If you needed add preinstall plugins and jenkins's customized initialize process.
+
 Edit `plugins.txt` and `custom.groovy` files. 
 
 ~~~sh
