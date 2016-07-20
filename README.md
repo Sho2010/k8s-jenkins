@@ -83,13 +83,16 @@ $ kubectl get ns --namespace jenkins
 ~~~sh
 # file name == secret index key
 $ echo -n "YOUR_SECRET" > google-app-secret
-$ kubectl create secret generic --from-file=google-app-secret --namespace jenkins
+$ kubectl create secret generic jenkins --from-file=google-app-secret --namespace jenkins
 $ kubectl get secret --namespace jenkins
 ~~~
 
 ## deployment
 
+Edit your gcp client id and secret.
+
 ~~~sh
+# edit jenkins-deploy.yml
 $ kubectl create -f jenkins-deploy.yml
 $ kubectl get deployment --namespace jenkins
 $ kubectl get pod --namespace jenkins
@@ -99,6 +102,9 @@ $ kubectl get pod --namespace jenkins
 
 ~~~sh
 $ kubectl create -f jenkins-service.yml
+
+# Wait a min. After that check your gcp project Loadbalancer.
+# Perhaps you should TCP loadbalancer has been created.
 $ kubectl get svc --namespace jenkins
 ~~~
 
@@ -108,7 +114,12 @@ $ kubectl get svc --namespace jenkins
 
 https://github.com/GoogleCloudPlatform/continuous-deployment-on-kubernetes
 
+* GKE official guide
+https://cloud.google.com/solutions/configuring-jenkins-container-engine
+
 https://www.youtube.com/watch?v=PFCSSiT-UUQ&index=21&list=PL69nYSiGNLP0Ljwa9J98xUd6UlM604Y-l
 
 http://www.slideshare.net/devopsdaysaustin/continuously-delivering-microservices-in-kubernetes-using-jenkins
+* gcePersistentDisk permission:
 
+http://stackoverflow.com/questions/35213589/docker-container-with-non-root-user-deployed-in-google-container-engine-can-not
