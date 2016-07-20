@@ -10,9 +10,11 @@ spec:
       labels:
         app: master
     spec:
+      securityContext:
+        fsGroup: 1000 # jenkins user gid(volumemounts permission)
       containers:
       - name: master
-        image: gcr.io/appsflyer-1350/jenkins
+        image: gcr.io/YOUR_PROJECT/jenkins
         ports:
         - containerPort: 8080
         - containerPort: 50000
@@ -26,6 +28,9 @@ spec:
               key: google-app-secret
         - name: GOOGLE_ACCOUNT_DOMAIN
           value: ""
+        volumeMounts:
+        - mountPath: /var/jenkins_home
+          name: jenkins-home
         resources:
           limits:
             cpu: 500m
@@ -33,3 +38,8 @@ spec:
           requests:
             cpu: 500m
             memory: 1000Mi
+      volumes:
+      - name: jenkins-home
+        gcePersistentDisk:
+          pdName: "jenkins-home"
+          fsType: ext4
