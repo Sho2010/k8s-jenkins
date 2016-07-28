@@ -115,6 +115,7 @@ $ kubectl get svc --namespace jenkins
 https://github.com/GoogleCloudPlatform/continuous-deployment-on-kubernetes
 
 * GKE official guide
+
 https://cloud.google.com/solutions/configuring-jenkins-container-engine
 
 https://www.youtube.com/watch?v=PFCSSiT-UUQ&index=21&list=PL69nYSiGNLP0Ljwa9J98xUd6UlM604Y-l
